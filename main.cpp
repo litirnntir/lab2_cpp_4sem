@@ -12,13 +12,13 @@ struct stats
 	}
 };
 
-stats quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+stats quickSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator secondIter)
 {
 	stats res;
-	if (end <= begin)
+	if (secondIter <= firstIter)
 		return res;
-	auto pivot = begin, middle = begin + 1;
-	for (auto i = begin + 1; i < end; i++)
+	auto pivot = firstIter, middle = firstIter + 1;
+	for (auto i = firstIter + 1; i < secondIter; i++)
 	{
 		res.comparisonCount++;
 		if (*i < *pivot)
@@ -29,60 +29,60 @@ stats quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end
 		}
 	}
 	res.copyCount++;
-	std::iter_swap(begin, middle - 1);
-	res += quickSort(begin, middle - 1);
-	res += quickSort(middle, end);
+	std::iter_swap(firstIter, middle - 1);
+	res += quickSort(firstIter, middle - 1);
+	res += quickSort(middle, secondIter);
 
 	return res;
 }
 stats selSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator secondIter)
 {
-	stats flag;
-	flag.copyCount++;
+	stats res;
+	if (secondIter <= firstIter)
+		return res;
+
+	res.copyCount++;
 	auto tmp = firstIter;
 	while (tmp <= secondIter)
 	{
-		flag.comparisonCount += 2;
-		flag.copyCount++;
+		res.comparisonCount += 2;
+		res.copyCount++;
 		auto small_ = tmp;
 		if (tmp != secondIter)
 		{
-			flag.copyCount++;
-			auto iter_ = tmp + 1;
-			while (iter_ <= secondIter)
+			res.copyCount++;
+			auto it = tmp + 1;
+			while (it <= secondIter)
 			{
-				flag.comparisonCount += 2;
-				if (*iter_ < *small_)
+				res.comparisonCount += 2;
+				if (*it < *small_)
 				{
-					flag.copyCount++;
-					small_ = iter_;
+					res.copyCount++;
+					small_ = it;
 				}
-				iter_++;
+				it++;
 			}
-			flag.comparisonCount++;
+			res.comparisonCount++;
 		}
 		std::swap(*(tmp), *(small_));
-		flag.copyCount += 3;
+		res.copyCount += 3;
 		tmp++;
 	}
-	flag.comparisonCount++;
-	return flag;
+	res.comparisonCount++;
+	return res;
 }
 
 int main()
 {
 	std::vector<int> a;
-	a.push_back(111);
-	a.push_back(1);
-	a.push_back(0);
-	a.push_back(40);
-	a.push_back(1);
-	a.push_back(1);
-	a.push_back(1);
-	quickSort(a.begin(), a.end());
+	for (int i = 10000; i > 0; --i)
+	{
+		a.push_back(i);
+	}
+	selSort(a.begin(), a.end());
 	for (auto i = a.begin(); i < a.end(); ++i)
 	{
-		std::cout << *i << "  ";
+		std::cout << *i << " ";
 	}
 	return 0;
 }
