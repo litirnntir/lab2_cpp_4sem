@@ -12,12 +12,35 @@ struct stats
 	}
 };
 
-stats selSort(std::vector<int>:: iterator firstIter, std::vector<int>::iterator secondIter)
+stats quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+	stats res;
+	if (end <= begin)
+		return res;
+	auto pivot = begin, middle = begin + 1;
+	for (auto i = begin + 1; i < end; i++)
+	{
+		res.comparisonCount++;
+		if (*i < *pivot)
+		{
+			res.copyCount++;
+			std::iter_swap(i, middle);
+			middle++;
+		}
+	}
+	res.copyCount++;
+	std::iter_swap(begin, middle - 1);
+	res += quickSort(begin, middle - 1);
+	res += quickSort(middle, end);
+
+	return res;
+}
+stats selSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator secondIter)
 {
 	stats flag;
 	flag.copyCount++;
 	auto tmp = firstIter;
-	while(tmp <= secondIter)
+	while (tmp <= secondIter)
 	{
 		flag.comparisonCount += 2;
 		flag.copyCount++;
@@ -49,10 +72,17 @@ stats selSort(std::vector<int>:: iterator firstIter, std::vector<int>::iterator 
 int main()
 {
 	std::vector<int> a;
+	a.push_back(111);
 	a.push_back(1);
 	a.push_back(0);
 	a.push_back(40);
-	a.push_back(111);
-	selSort(a.begin(), a.end());
+	a.push_back(1);
+	a.push_back(1);
+	a.push_back(1);
+	quickSort(a.begin(), a.end());
+	for (auto i = a.begin(); i < a.end(); ++i)
+	{
+		std::cout << *i << "  ";
+	}
 	return 0;
 }
