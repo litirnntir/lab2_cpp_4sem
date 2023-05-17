@@ -1,5 +1,3 @@
-<!-- By https://github.com/salnyed -->
-
 ## *Laboratory work No. 2*
 ### Variant No. 221 Gorbuntsova A. 6212
 
