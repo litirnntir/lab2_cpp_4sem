@@ -2,6 +2,12 @@
 #include <vector>
 #include <chrono>
 
+size_t lcg()
+{
+	static size_t x = 0;
+	x = (1021 * x + 24631) % 116640;
+	return x;
+}
 
 void printVector(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
 {
@@ -25,7 +31,7 @@ struct stats
 	}
 };
 
-stats quickSort(std::vector<int>& arr, std::vector<int>::iterator begin, std::vector<int>::iterator end)
+stats quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
 	stats res;
 	if (end <= begin)
@@ -43,29 +49,25 @@ stats quickSort(std::vector<int>& arr, std::vector<int>::iterator begin, std::ve
 	}
 	res.copyCount++;
 	std::iter_swap(begin, middle - 1);
-	res += quickSort(arr, begin, middle - 1);
-	res += quickSort(arr, middle, end);
+	res += quickSort(begin, middle - 1);
+	res += quickSort(middle, end);
 
 	return res;
 }
 
-
-size_t lcg() {
-	static size_t x = 0;
-	x = (1021 * x + 24631) % 116640;
-	return x;
-}
-
-
-stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
 	stats s;
 
-	for (auto it = begin; it != end - 1; it++) {
+	for (auto it = begin; it != end - 1; it++)
+	{
 		auto min_it = it;
 
-		for (auto jt = it + 1; jt != end; jt++) {
+		for (auto jt = it + 1; jt != end; jt++)
+		{
 			s.comparisonCount++;
-			if (*jt < *min_it) {
+			if (*jt < *min_it)
+			{
 				min_it = jt;
 			}
 		}
@@ -76,8 +78,6 @@ stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator
 
 	return s;
 }
-
-
 
 int main()
 {
@@ -91,12 +91,11 @@ int main()
 
 	printVector(a.begin(), a.end());
 
-
-	selectionSort(a.begin(), a.end());
+	quickSort(a.begin(), a.end());
 
 	printVector(a.begin(), a.end());
 
-	quickSort(a, a.begin(), a.end());
+	selectionSort(a.begin(), a.end());
 
 	printVector(a.begin(), a.end());
 
