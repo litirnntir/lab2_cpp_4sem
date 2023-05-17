@@ -498,7 +498,7 @@ int main()
 			file1.open(
 				"/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountSelectionSort.txt");
 			file2.open(
-				"/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountSelectionSort.txt");
+				"/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/copyCountSelectionSort.txt");
 			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeSelectionSort.txt");
 			for (auto i : numbs)
 			{
@@ -514,7 +514,7 @@ int main()
 			file2.close();
 			file3.close();
 			file1.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountMergeSort.txt");
-			file2.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountMergeSort.txt");
+			file2.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/copyCountMergeSort.txt");
 			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeMergeSort.txt");
 			for (auto i : numbs)
 			{
