@@ -55,44 +55,10 @@ size_t lcg() {
 	x = (1021 * x + 24631) % 116640;
 	return x;
 }
-//stats selectionSort(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
-//{
-//	stats flag;
-//	flag.copyCount++;
-//	auto tmp = iter1;
-//	while (tmp <= iter2)
-//	{
-//		flag.comparisonCount += 2;
-//		flag.copyCount++;
-//		auto small_ = tmp;
-//		if (tmp != iter2)
-//		{
-//			flag.copyCount++;
-//			auto iter_ = tmp + 1;
-//			while (iter_ <= iter2)
-//			{
-//				flag.comparisonCount += 2;
-//				if (*iter_ < *small_)
-//				{
-//					flag.copyCount++;
-//					small_ = iter_;
-//				}
-//				iter_++;
-//			}
-//			flag.comparisonCount++;
-//		}
-//		std::swap(*(tmp), *(small_));
-//		flag.copyCount += 3;
-//		tmp++;
-//	}
-//	flag.comparisonCount++;
-//	return flag;
-//}
 
 
-stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end, std::vector<int>& arr) {
+stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
 	stats s;
-	int n = std::distance(begin, end);
 
 	for (auto it = begin; it != end - 1; it++) {
 		auto min_it = it;
@@ -126,7 +92,7 @@ int main()
 	printVector(a.begin(), a.end());
 
 
-	selectionSort(a.begin(), a.end(),a);
+	selectionSort(a.begin(), a.end());
 
 	printVector(a.begin(), a.end());
 
