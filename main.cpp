@@ -3,6 +3,7 @@
 #include <chrono>
 #include <fstream>
 
+/* Функция для генерации псевдослучайного числа */
 size_t lcg()
 {
 	static size_t x = 0;
@@ -10,6 +11,7 @@ size_t lcg()
 	return x;
 }
 
+/* Функция проверки на целое */
 int checkIsInt()
 {
 	int number;
@@ -22,6 +24,7 @@ int checkIsInt()
 	return number;
 }
 
+/* Функция проверки числа от 1 до 5 */
 int checkMenu()
 {
 	int number;
@@ -34,6 +37,7 @@ int checkMenu()
 	return number;
 }
 
+/* Функция для вывода вектора */
 void printVector(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
 {
 	auto t = iter1;
@@ -45,6 +49,7 @@ void printVector(std::vector<int>::iterator iter1, std::vector<int>::iterator it
 	std::cout << std::endl;
 }
 
+/* Структура для хранения статистики сортировок */
 struct stats
 {
 	size_t comparisonCount = 0, copyCount = 0, time = 0;
@@ -56,6 +61,7 @@ struct stats
 	}
 };
 
+/* Функция для быстрой сортировки вектора */
 stats quickSort(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
 {
 	stats stat;
@@ -80,6 +86,7 @@ stats quickSort(std::vector<int>::iterator iter1, std::vector<int>::iterator ite
 	return stat;
 }
 
+/* Функция для сортировки выбором вектора */
 stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
 	stats stat;
@@ -104,6 +111,7 @@ stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator
 	return stat;
 }
 
+/* Функция для сортировки слиянием вектора */
 stats merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle, std::vector<int>::iterator end)
 {
 
@@ -145,6 +153,7 @@ stats merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle,
 	return tmp;
 }
 
+/* Функция для быстрой сортировки естественным слиянием вектора */
 stats naturalMergeSort(std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
 	stats stat;
@@ -162,6 +171,7 @@ stats naturalMergeSort(std::vector<int>::iterator begin, std::vector<int>::itera
 	return result;
 }
 
+/* Функция для сбора статистики быстрой сортировки в рандомном векторе */
 stats testQuickSortRandom(int count)
 {
 	stats stat;
@@ -190,12 +200,13 @@ stats testQuickSortRandom(int count)
 	return stat;
 }
 
+/* Функция для сбора статистики быстрой сортировки в отсортированном векторе */
 stats testQuickSortSorted(int count)
 {
 	stats stat;
 	std::vector<int> vec;
 	vec.reserve(count);
-for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		vec.push_back(i);
 	}
@@ -217,6 +228,7 @@ for (int i = 0; i < count; i++)
 
 }
 
+/* Функция для сбора статистики быстрой сортировки в обратно отсортированном векторе */
 stats testQuickSortReverseSorted(int count)
 {
 	stats stat;
@@ -241,6 +253,7 @@ stats testQuickSortReverseSorted(int count)
 	return stat;
 }
 
+/* Функция для сбора статистики сортировки выбором в рандомном векторе */
 stats testSelectionSortRandom(int count)
 {
 	stats stat;
@@ -269,6 +282,7 @@ stats testSelectionSortRandom(int count)
 	return stat;
 }
 
+/* Функция для сбора статистики сортировки выбором в отсортированном векторе */
 stats testSelectionSortSorted(int count)
 {
 	stats stat;
@@ -296,6 +310,7 @@ stats testSelectionSortSorted(int count)
 
 }
 
+/* Функция для сбора статистики сортировки выбором в обратно отсортированном векторе */
 stats testSelectionSortReverseSorted(int count)
 {
 	stats stat;
@@ -320,6 +335,7 @@ stats testSelectionSortReverseSorted(int count)
 	return stat;
 }
 
+/* Функция для сбора статистики сортировки слиянием в рандомном векторе */
 stats testMergeSortRandom(int count)
 {
 	stats stat;
@@ -348,12 +364,13 @@ stats testMergeSortRandom(int count)
 	return stat;
 }
 
+/* Функция для сбора статистики сортировки слиянием в отсортированном векторе */
 stats testMergeSortSorted(int count)
 {
 	stats stat;
 	std::vector<int> vec;
 	vec.reserve(count);
-for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		vec.push_back(i);
 	}
@@ -375,6 +392,7 @@ for (int i = 0; i < count; i++)
 
 }
 
+/* Функция для сбора статистики сортировки слиянием в обратно отсортированном векторе */
 stats testMergeSortReverseSorted(int count)
 {
 	stats stat;
@@ -399,6 +417,7 @@ stats testMergeSortReverseSorted(int count)
 	return stat;
 }
 
+/* Функция для вывода пунктов меню */
 void printMenu()
 {
 	std::cout << "\n1. Quick sort\n";
@@ -408,6 +427,7 @@ void printMenu()
 	std::cout << "Input number: ";
 }
 
+/* Главная функция программы с меню */
 int main()
 {
 	int choice;
