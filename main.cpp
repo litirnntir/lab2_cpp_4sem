@@ -260,10 +260,10 @@ stats testSelectionSortReverseSorted(int count)
 
 void printMenu()
 {
-	std::cout << "1. Quick sort" << std::endl;
-	std::cout << "2. Selection sort " << std::endl;
-	std::cout << "3. Merge sort" << std::endl;
-	std::cout << "4. Print stats" << std::endl;
+	std::cout << "\n1. Quick sort\n";
+	std::cout << "2. Selection sort\n";
+	std::cout << "3. Merge sort\n";
+	std::cout << "4. Print stats\n\n";
 	std::cout << "Input number: ";
 }
 
@@ -283,7 +283,7 @@ int main()
 			n = checkIsInt();
 			std::cout << std::endl;
 			std::cout << "Input numbers: ";
-			while (i < n + 1)
+			while (i < n)
 			{
 				k = checkIsInt();
 				test.push_back(k);
@@ -302,7 +302,7 @@ int main()
 			n = checkIsInt();
 			std::cout << std::endl;
 			std::cout << "Input numbers: ";
-			while (i < n + 1)
+			while (i < n)
 			{
 				k = checkIsInt();
 				test.push_back(k);
