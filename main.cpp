@@ -1,12 +1,37 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <fstream>
 
 size_t lcg()
 {
 	static size_t x = 0;
 	x = (1021 * x + 24631) % 116640;
 	return x;
+}
+
+int checkIsInt()
+{
+	int number;
+	while (!(std::cin >> number) || (std::cin.peek() != '\n'))
+	{
+		std::cin.clear();
+		while (std::cin.get() != '\n');
+		std::cout << "Incorrect number, input again: ";
+	}
+	return number;
+}
+
+int checkMenu()
+{
+	int number;
+	while (!(std::cin >> number) || (std::cin.peek() != '\n') || number > 5 || number < 1)
+	{
+		std::cin.clear();
+		while (std::cin.get() != '\n');
+		std::cout << "Incorrect number, input again: ";
+	}
+	return number;
 }
 
 void printVector(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
@@ -239,12 +264,102 @@ void printMenu()
 	std::cout << "2. Selection sort " << std::endl;
 	std::cout << "3. Merge sort" << std::endl;
 	std::cout << "4. Print stats" << std::endl;
-	std::cout << "Enter number: ";
+	std::cout << "Input number: ";
 }
 
 int main()
 {
-	printMenu();
+	int choice = 0;
+	bool exit = false;
+	while (!exit)
+	{
+		printMenu();
+		choice = checkMenu();
+		if (choice == 1)
+		{
+			int n, i = 0, k;
+			std::vector<int> test;
+			std::cout << "Enter the amount of numbers: ";
+			n = checkIsInt();
+			std::cout << std::endl;
+			std::cout << "Input numbers: ";
+			while (i < n + 1)
+			{
+				k = checkIsInt();
+				test.push_back(k);
+				i++;
+			}
+			stats tmp = quickSort(test.begin(), test.end());
+			std::cout << "comparisonCount: " << tmp.comparisonCount << " " << "copyCount: " << tmp.copyCount
+					  << std::endl;
+			printVector(test.begin(), test.end());
+		}
+		if (choice == 2)
+		{
+			int n, i = 0, k;
+			std::vector<int> test;
+			std::cout << "Input the amount of numbers: ";
+			n = checkIsInt();
+			std::cout << std::endl;
+			std::cout << "Input numbers: ";
+			while (i < n + 1)
+			{
+				k = checkIsInt();
+				test.push_back(k);
+				i++;
+			}
+			stats tmp = selectionSort(test.begin(), test.end());
+			std::cout << "comparisonCount: " << tmp.comparisonCount << " " << "copyCount: " << tmp.copyCount
+					  << std::endl;
+			printVector(test.begin(), test.end());
+		}
+		if (choice == 3)
+		{
+		}
+		if (choice == 4)
+		{
+			std::vector<int> numbs = { 1000, 2000, 3000, 4000, 5000, 10000 };
 
-	return 0;
+			std::ofstream file1, file2, file3;
+			stats tmp1, tmp2, tmp3;
+			file1.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountInsertSort.txt");
+			file2.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/copyCountInsertSort.txt");
+			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeInsertSort.txt");
+			for (auto i : numbs)
+			{
+				tmp1 = testQuickSortRandom(i);
+				tmp2 = testQuickSortSorted(i);
+				tmp3 = testQuickSortReverseSorted(i);
+				file1 << i << " " << tmp1.comparisonCount << " " << tmp2.comparisonCount << " "
+						<< tmp3.comparisonCount << "\n";
+				file2 << i << " " << tmp1.copyCount << " " << tmp2.copyCount << " " << tmp3.copyCount << "\n";
+				file3 << i << " " << tmp1.time << " " << tmp2.time << " " << tmp3.time << "\n";
+			}
+			file1.close();
+			file2.close();
+			file3.close();
+			file1.open(
+				"/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountSelectionSort.txt");
+			file2.open(
+				"/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountSelectionSort.txt");
+			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeSelectionSort.txt");
+			for (auto i : numbs)
+			{
+				tmp1 = testSelectionSortRandom(i);
+				tmp2 = testSelectionSortSorted(i);
+				tmp3 = testSelectionSortReverseSorted(i);
+				file1 << i << " " << tmp1.comparisonCount << " " << tmp2.comparisonCount << " "
+						<< tmp3.comparisonCount << "\n";
+				file2 << i << " " << tmp1.copyCount << " " << tmp2.copyCount << " " << tmp3.copyCount << "\n";
+				file3 << i << " " << tmp1.time << " " << tmp2.time << " " << tmp3.time << "\n";
+			}
+			file1.close();
+			file2.close();
+			file3.close();
+		}
+		if (choice == 5)
+		{
+			exit = true;
+		}
+	}
 }
