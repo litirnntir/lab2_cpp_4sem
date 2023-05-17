@@ -1,5 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
+
+
+void printVector(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
+{
+	auto t = iter1;
+	while (t < iter2)
+	{
+		std::cout << *t << " ";
+		t++;
+	}
+	std::cout << std::endl;
+}
 
 struct stats
 {
@@ -12,13 +25,13 @@ struct stats
 	}
 };
 
-stats quickSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator secondIter)
+stats quickSort(std::vector<int>& arr, std::vector<int>::iterator begin, std::vector<int>::iterator end)
 {
 	stats res;
-	if (secondIter <= firstIter)
+	if (end <= begin)
 		return res;
-	auto pivot = firstIter, middle = firstIter + 1;
-	for (auto i = firstIter + 1; i < secondIter; i++)
+	auto pivot = begin, middle = begin + 1;
+	for (auto i = begin + 1; i < end; i++)
 	{
 		res.comparisonCount++;
 		if (*i < *pivot)
@@ -29,60 +42,97 @@ stats quickSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator
 		}
 	}
 	res.copyCount++;
-	std::iter_swap(firstIter, middle - 1);
-	res += quickSort(firstIter, middle - 1);
-	res += quickSort(middle, secondIter);
+	std::iter_swap(begin, middle - 1);
+	res += quickSort(arr, begin, middle - 1);
+	res += quickSort(arr, middle, end);
 
 	return res;
 }
-stats selSort(std::vector<int>::iterator firstIter, std::vector<int>::iterator secondIter)
-{
-	stats res;
-	if (secondIter <= firstIter)
-		return res;
 
-	res.copyCount++;
-	auto tmp = firstIter;
-	while (tmp <= secondIter)
-	{
-		res.comparisonCount += 2;
-		res.copyCount++;
-		auto small_ = tmp;
-		if (tmp != secondIter)
-		{
-			res.copyCount++;
-			auto it = tmp + 1;
-			while (it <= secondIter)
-			{
-				res.comparisonCount += 2;
-				if (*it < *small_)
-				{
-					res.copyCount++;
-					small_ = it;
-				}
-				it++;
+
+size_t lcg() {
+	static size_t x = 0;
+	x = (1021 * x + 24631) % 116640;
+	return x;
+}
+//stats selectionSort(std::vector<int>::iterator iter1, std::vector<int>::iterator iter2)
+//{
+//	stats flag;
+//	flag.copyCount++;
+//	auto tmp = iter1;
+//	while (tmp <= iter2)
+//	{
+//		flag.comparisonCount += 2;
+//		flag.copyCount++;
+//		auto small_ = tmp;
+//		if (tmp != iter2)
+//		{
+//			flag.copyCount++;
+//			auto iter_ = tmp + 1;
+//			while (iter_ <= iter2)
+//			{
+//				flag.comparisonCount += 2;
+//				if (*iter_ < *small_)
+//				{
+//					flag.copyCount++;
+//					small_ = iter_;
+//				}
+//				iter_++;
+//			}
+//			flag.comparisonCount++;
+//		}
+//		std::swap(*(tmp), *(small_));
+//		flag.copyCount += 3;
+//		tmp++;
+//	}
+//	flag.comparisonCount++;
+//	return flag;
+//}
+
+
+stats selectionSort(std::vector<int>::iterator begin, std::vector<int>::iterator end, std::vector<int>& arr) {
+	stats s;
+	int n = std::distance(begin, end);
+
+	for (auto it = begin; it != end - 1; it++) {
+		auto min_it = it;
+
+		for (auto jt = it + 1; jt != end; jt++) {
+			s.comparisonCount++;
+			if (*jt < *min_it) {
+				min_it = jt;
 			}
-			res.comparisonCount++;
 		}
-		std::swap(*(tmp), *(small_));
-		res.copyCount += 3;
-		tmp++;
+
+		s.copyCount += 3;
+		std::swap(*min_it, *it);
 	}
-	res.comparisonCount++;
-	return res;
+
+	return s;
 }
+
+
 
 int main()
 {
 	std::vector<int> a;
-	for (int i = 10000; i > 0; --i)
+	stats s;
+
+	for (int i = 10; i >= 1; i--)
 	{
 		a.push_back(i);
 	}
-	selSort(a.begin(), a.end());
-	for (auto i = a.begin(); i < a.end(); ++i)
-	{
-		std::cout << *i << " ";
-	}
+
+	printVector(a.begin(), a.end());
+
+
+	selectionSort(a.begin(), a.end(),a);
+
+	printVector(a.begin(), a.end());
+
+	quickSort(a, a.begin(), a.end());
+
+	printVector(a.begin(), a.end());
+
 	return 0;
 }
