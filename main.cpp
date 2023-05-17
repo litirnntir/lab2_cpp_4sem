@@ -98,8 +98,9 @@ stats testQuickSortRandom(int count)
 		//stat += duration.count();
 		stat.time += duration.count();
 	}
-	std::cout << "Quick Sort for random array with " << count << " numbers"
-																 "\n\tTime: " << (double)stat.time / 100 << " microseconds"
+	std::cout << "Quick Sort for random array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
+			  << " microseconds"
 			  <<
 			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
 			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
@@ -122,8 +123,9 @@ stats testQuickSortSorted(int count)
 
 	stat.time += duration.count();
 
-	std::cout << "Quick Sort for sorted array with " << count << " numbers"
-																 "\n\tTime: " << (double)stat.time / 100 << " microseconds"
+	std::cout << "Quick Sort for sorted array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
+			  << " microseconds"
 			  <<
 			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
 			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
@@ -147,8 +149,85 @@ stats testQuickSortReverseSorted(int count)
 
 	stat.time += duration.count();
 
-	std::cout << "Quick Sort for reverse sorted array with " << count << " numbers"
-																		 "\n\tTime: " << (double)stat.time / 100
+	std::cout << "Quick Sort for reverse sorted array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
+			  << " microseconds" <<
+			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
+			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
+	return stat;
+}
+
+stats testSelectionSortRandom(int count)
+{
+	stats stat;
+	for (int j = 0; j < 100; j++)
+	{
+		std::vector<int> vec;
+		for (int i = 0; i < count; i++)
+		{
+			vec.push_back(lcg());
+		}
+
+		auto start = std::chrono::high_resolution_clock::now();
+		stat += selectionSort(vec.begin(), vec.end());
+		auto stop = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+		stat.time += duration.count();
+	}
+	std::cout << "Selection Sort for random array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
+			  << " microseconds"
+			  <<
+			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
+			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
+	return stat;
+}
+
+stats testSelectionSortSorted(int count)
+{
+	stats stat;
+	std::vector<int> vec;
+	for (int i = 0; i < count; i++)
+	{
+		vec.push_back(i);
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+	stat += selectionSort(vec.begin(), vec.end());
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+	stat.time += duration.count();
+
+	std::cout << "Selection Sort for sorted array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
+			  << " microseconds"
+			  <<
+			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
+			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
+	return stat;
+
+}
+
+stats testSelectionSortReverseSorted(int count)
+{
+	stats stat;
+	std::vector<int> vec;
+	for (int i = count; i > 0; i--)
+	{
+		vec.push_back(i);
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+	stat += selectionSort(vec.begin(), vec.end());
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+	stat.time += duration.count();
+
+	std::cout << "Selection Sort for reverse sorted array with " << count << " numbers" <<
+			  "\n\tTime: " << (double)stat.time / 100
 			  << " microseconds" <<
 			  "\n\tComparisonCount : " << stat.comparisonCount / 100 <<
 			  "\n\tCopyCount : " << stat.copyCount / 100 << std::endl;
@@ -157,9 +236,12 @@ stats testQuickSortReverseSorted(int count)
 
 int main()
 {
-	testQuickSortRandom(10);
-	testQuickSortSorted(10);
-	testQuickSortReverseSorted(10);
+	testQuickSortRandom(100);
+	testSelectionSortRandom(100);
+	testQuickSortSorted(100);
+	testSelectionSortSorted(100);
+	testQuickSortReverseSorted(100);
+	testSelectionSortReverseSorted(100);
 
 	return 0;
 }
