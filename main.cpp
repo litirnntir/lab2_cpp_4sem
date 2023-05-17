@@ -269,7 +269,7 @@ void printMenu()
 
 int main()
 {
-	int choice = 0;
+	int choice;
 	bool exit = false;
 	while (!exit)
 	{
@@ -322,16 +322,16 @@ int main()
 
 			std::ofstream file1, file2, file3;
 			stats tmp1, tmp2, tmp3;
-			file1.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountInsertSort.txt");
-			file2.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/copyCountInsertSort.txt");
-			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeInsertSort.txt");
+			file1.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/comparisonCountQuickSort.txt");
+			file2.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/copyCountQuickSort.txt");
+			file3.open("/Users/aleksandragorbuncova/CLionProjects/salnyed/lab2-cpp-4sem/timeQuickSort.txt");
 			for (auto i : numbs)
 			{
 				tmp1 = testQuickSortRandom(i);
 				tmp2 = testQuickSortSorted(i);
 				tmp3 = testQuickSortReverseSorted(i);
 				file1 << i << " " << tmp1.comparisonCount << " " << tmp2.comparisonCount << " "
-						<< tmp3.comparisonCount << "\n";
+					  << tmp3.comparisonCount << "\n";
 				file2 << i << " " << tmp1.copyCount << " " << tmp2.copyCount << " " << tmp3.copyCount << "\n";
 				file3 << i << " " << tmp1.time << " " << tmp2.time << " " << tmp3.time << "\n";
 			}
@@ -349,7 +349,7 @@ int main()
 				tmp2 = testSelectionSortSorted(i);
 				tmp3 = testSelectionSortReverseSorted(i);
 				file1 << i << " " << tmp1.comparisonCount << " " << tmp2.comparisonCount << " "
-						<< tmp3.comparisonCount << "\n";
+					  << tmp3.comparisonCount << "\n";
 				file2 << i << " " << tmp1.copyCount << " " << tmp2.copyCount << " " << tmp3.copyCount << "\n";
 				file3 << i << " " << tmp1.time << " " << tmp2.time << " " << tmp3.time << "\n";
 			}
