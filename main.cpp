@@ -95,7 +95,6 @@ stats testQuickSortRandom(int count)
 		auto stop = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
-		//stat += duration.count();
 		stat.time += duration.count();
 	}
 	std::cout << "Quick Sort for random array with " << count << " numbers" <<
@@ -234,14 +233,18 @@ stats testSelectionSortReverseSorted(int count)
 	return stat;
 }
 
+void printMenu()
+{
+	std::cout << "1. Quick sort" << std::endl;
+	std::cout << "2. Selection sort " << std::endl;
+	std::cout << "3. Merge sort" << std::endl;
+	std::cout << "4. Print stats" << std::endl;
+	std::cout << "Enter number: ";
+}
+
 int main()
 {
-	testQuickSortRandom(100);
-	testSelectionSortRandom(100);
-	testQuickSortSorted(100);
-	testSelectionSortSorted(100);
-	testQuickSortReverseSorted(100);
-	testSelectionSortReverseSorted(100);
+	printMenu();
 
 	return 0;
 }
