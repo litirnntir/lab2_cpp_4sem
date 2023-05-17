@@ -14,3 +14,5 @@ Calculate the number of comparisons and the number of object copies for arrays o
 a) on average (generate 100 random arrays and calculate average values); \
 b) for a completely sorted array; \
 c) for inversely sorted array.
+
+![Sort](https://raw.githubusercontent.com/litirnntir/litirnntir/main/sort.gif)
