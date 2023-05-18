@@ -495,7 +495,7 @@ int main()
 		}
 		if (choice == 4)
 		{
-			std::vector<int> numbs = { 1000, 2000, 3000, 4000, 5000, 10000 };
+			std::vector<int> numbs = { 1000, 2000, 3000, 4000, 5000, 10000};
 
 			std::ofstream file1, file2, file3;
 			stats tmp1, tmp2, tmp3;
